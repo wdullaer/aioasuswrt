@@ -65,8 +65,9 @@ async def _parse_lines(lines, regex):
     If a line can't be parsed it is logged and skipped in the output.
     """
     results = []
-    if inspect.iscoroutinefunction(lines):
+    while inspect.iscoroutinefunction(lines):
         lines = await lines
+
     for line in lines:
         if line:
             match = regex.search(line)
